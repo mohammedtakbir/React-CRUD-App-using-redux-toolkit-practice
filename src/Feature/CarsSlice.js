@@ -13,9 +13,12 @@ const carsSlice = createSlice({
     name: 'cars',
     initialState: initialCars,
     reducers: {
-        showCars: (state) => state
+        showCars: (state) => state,
+        addCar: (state, action) => {
+            state.cars.push(action.payload)
+        }
     }
 })
 
-export const { showCars } = carsSlice.actions;
+export const { showCars, addCar } = carsSlice.actions;
 export default carsSlice.reducer;

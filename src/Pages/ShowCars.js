@@ -20,7 +20,6 @@ const ShowCars = () => {
                             </tr>
                         </thead>
                         <tbody>
-
                             {
                                 cars.map((car, i) => (
                                     <tr key={car.id}>
@@ -29,8 +28,8 @@ const ShowCars = () => {
                                         <td>{car.modelName}</td>
                                         <td>{car.year}</td>
                                         <td>
-                                            <button className='text-blue-500 underline mr-3'>Edit</button>
-                                            <button className='text-red-500 underline'>Delete</button>
+                                            <button className='text-blue-500 underline mr-3 active:text-green-500'>Edit</button>
+                                            <button className='text-red-500 underline active:text-green-500'>Delete</button>
                                         </td>
                                     </tr>
                                 ))
