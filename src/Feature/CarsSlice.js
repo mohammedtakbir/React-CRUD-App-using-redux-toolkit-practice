@@ -19,9 +19,18 @@ const carsSlice = createSlice({
         },
         deleteCar: (state, action) => {
             state.cars = state.cars.filter(car => car.id !== action.payload)
+        },
+        updateCar: (state, action) => {
+            const { id, brandName, modelName, year } = action.payload;
+            const isExist = state.cars.filter(car => car.id === id);
+            if (isExist) {
+                isExist[0].modelName = modelName;
+                isExist[0].brandName = brandName;
+                isExist[0].year = year;
+            }
         }
     }
 })
 
-export const { showCars, addCar, deleteCar } = carsSlice.actions;
+export const { showCars, addCar, deleteCar, updateCar } = carsSlice.actions;
 export default carsSlice.reducer;

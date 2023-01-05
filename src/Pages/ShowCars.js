@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { deleteCar } from '../Feature/CarsSlice';
 
 const ShowCars = () => {
@@ -34,11 +35,13 @@ const ShowCars = () => {
                                         <td>{car.modelName}</td>
                                         <td>{car.year}</td>
                                         <td>
-                                            <button
+                                            <Link
+                                                to='/edit-car'
+                                                state={{ id: car.id, brandName: car.brandName, modelName: car.modelName, year: car.year }}
                                                 className='text-blue-500 underline mr-3 active:text-green-500'
                                             >
                                                 Edit
-                                            </button>
+                                            </Link>
                                             <button
                                                 onClick={() => handleDeleteCar(car.id)}
                                                 className='text-red-500 underline active:text-green-500'

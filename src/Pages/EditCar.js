@@ -1,30 +1,34 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuidv4 } from 'uuid';
-import { addCar } from '../Feature/CarsSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { updateCar } from '../Feature/CarsSlice';
 
-const AddCar = () => {
+const EditCar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
+    const car = location.state;
+    const { brandName, modelName, year, id } = car;
+
     const { register, handleSubmit } = useForm();
 
-    const handleAddCar = (data, e) => {
-        const car = { id: uuidv4(), ...data }
-        dispatch(addCar(car));
-        navigate('/show-cars', { replace: true });
+    const handleCarUpdate = (date, e) => {
+        const car = { id, ...date };
+        dispatch(updateCar(car));
         e.target.reset();
+        navigate('/show-cars', { replace: true });
     }
 
     return (
         <div>
-            <h2 className='text-center text-2xl font-semibold'>Add a Car</h2>
-            <form onSubmit={handleSubmit(handleAddCar)} className='mt-10 max-w-[350px] mx-auto border shadow-md rounded-md p-5'>
+            <h2 className='text-center text-2xl font-medium mt-6'>Edit a Car</h2>
+            <form onSubmit={handleSubmit(handleCarUpdate)} className='mt-5 max-w-[350px] mx-auto border shadow-md rounded-md p-5'>
                 <div className='mb-3'>
                     <label className='text-sm font-medium'>Brand</label>
                     <input
                         {...register('brandName', { required: true })}
+                        defaultValue={brandName}
                         type="text"
                         placeholder="Brand Name"
                         className="input input-bordered w-full !h-10 text-sm"
@@ -34,6 +38,7 @@ const AddCar = () => {
                     <label className='text-sm font-medium'>Model</label>
                     <input
                         {...register('modelName', { required: true })}
+                        defaultValue={modelName}
                         type="text"
                         placeholder="Model Name"
                         className="input input-bordered w-full !h-10 text-sm"
@@ -43,6 +48,7 @@ const AddCar = () => {
                     <label className='text-sm font-medium'>Year</label>
                     <input
                         {...register('year', { required: true })}
+                        defaultValue={year}
                         type='text'
                         placeholder="Year..."
                         className="input input-bordered w-full !h-10 text-sm"
@@ -56,4 +62,4 @@ const AddCar = () => {
     );
 };
 
-export default AddCar;
+export default EditCar;
