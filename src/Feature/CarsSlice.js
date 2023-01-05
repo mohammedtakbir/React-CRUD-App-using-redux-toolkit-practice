@@ -16,9 +16,12 @@ const carsSlice = createSlice({
         showCars: (state) => state,
         addCar: (state, action) => {
             state.cars.push(action.payload)
+        },
+        deleteCar: (state, action) => {
+            state.cars = state.cars.filter(car => car.id !== action.payload)
         }
     }
 })
 
-export const { showCars, addCar } = carsSlice.actions;
+export const { showCars, addCar, deleteCar } = carsSlice.actions;
 export default carsSlice.reducer;

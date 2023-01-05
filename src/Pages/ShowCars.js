@@ -1,9 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCar } from '../Feature/CarsSlice';
 
 const ShowCars = () => {
+    const dispatch = useDispatch();
     const cars = useSelector((state) => state.carsReducer.cars);
-    
+
+    const handleDeleteCar = (id) => {
+        dispatch(deleteCar(id))
+    }
+
     return (
         <div>
             <h1 className='text-center text-2xl font-semibold'>Show All Cars</h1>
@@ -28,8 +34,17 @@ const ShowCars = () => {
                                         <td>{car.modelName}</td>
                                         <td>{car.year}</td>
                                         <td>
-                                            <button className='text-blue-500 underline mr-3 active:text-green-500'>Edit</button>
-                                            <button className='text-red-500 underline active:text-green-500'>Delete</button>
+                                            <button
+                                                className='text-blue-500 underline mr-3 active:text-green-500'
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => handleDeleteCar(car.id)}
+                                                className='text-red-500 underline active:text-green-500'
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 ))
